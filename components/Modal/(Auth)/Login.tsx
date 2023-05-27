@@ -1,4 +1,15 @@
+import { AuthModalType, authModalState } from "@/app/_state/recoil"
+import { useSetRecoilState } from "recoil"
+
 export function AuthLogin() {
+  const setAuthModalState = useSetRecoilState(authModalState)
+  const handleClick = (type: AuthModalType) => {
+    setAuthModalState((prev) => ({
+      ...prev,
+      type
+    }))
+  }
+
   return (
     <form className='space-y-6 px-6 py-4'>
       <h3 className='text-xl font-medium text-white'>sign in to leetclone</h3>
@@ -24,11 +35,11 @@ export function AuthLogin() {
         />
       </div>
 
-      <button type='submit' className='w-full text-white focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-grand-orange hover:bg-brand-orange-s'>
+      <button type='submit' className='w-full text-white focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-brand-orange hover:bg-brand-orange-s'>
         login
       </button>
 
-      <button className='flex w-full justify-end'>
+      <button className='flex w-full justify-end' onClick={() => handleClick('forgotPassword')}>
         <a href='#' className='text-sm block text-brand-orange hover:underline w-full text-right'>
           forgot password?
         </a>
@@ -36,7 +47,7 @@ export function AuthLogin() {
 
       <div className='text-sm font-medium text-gray-300'>
         not registered?{" "}
-        <a href='#' className='text-blue-700 hover:underline'>
+        <a href='#' className='text-blue-700 hover:underline' onClick={() => handleClick('register')}>
           create account
         </a>
       </div>

@@ -1,4 +1,15 @@
+import { authModalState, AuthModalType } from "@/app/_state/recoil"
+import { useSetRecoilState } from "recoil"
+
 export function AuthSignUp() {
+  const setAuthModalState = useSetRecoilState(authModalState)
+  const handleClick = (type: AuthModalType) => {
+    setAuthModalState((prev) => ({
+      ...prev,
+      type
+    }))
+  }
+
   return (
     <form className='space-y-6 px-6 py-4'>
       <h3 className='text-xl font-medium text-white'>register to leetclone</h3>
@@ -35,13 +46,13 @@ export function AuthSignUp() {
         />
       </div>
 
-      <button type='submit' className='w-full text-white focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-grand-orange hover:bg-brand-orange-s'>
+      <button type='submit' className='w-full text-white focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-brand-orange hover:bg-brand-orange-s'>
         register
       </button>
 
       <div className='text-sm font-medium text-gray-300'>
         already have an account?{" "}
-        <a href='#' className='text-blue-700 hover:underline'>
+        <a href='#' className='text-blue-700 hover:underline' onClick={() => handleClick('login')}>
           login
         </a>
       </div>

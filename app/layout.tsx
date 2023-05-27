@@ -1,4 +1,5 @@
 import './globals.css'
+import AppProvider from './provider'
 
 export const metadata = {
   title: 'Learn To Clone - LeetCode',
@@ -13,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   )

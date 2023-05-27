@@ -2,8 +2,11 @@ import { XCircleIcon } from '@heroicons/react/24/outline'
 import { AuthLogin } from './Login';
 import { AuthSignUp } from './SignUp';
 import { AuthResetPassword } from './ResetPassword';
+import { authModalState } from '@/app/_state/recoil';
+import { useRecoilValue } from 'recoil';
 
 export function AuthCommonModal() {
+	const authModal = useRecoilValue(authModalState)
   return (
 		<>
 			<div
@@ -20,7 +23,12 @@ export function AuthCommonModal() {
                   
 							</button>
 						</div>
-            <AuthResetPassword />
+            {authModal.type === 'login'
+							? <AuthLogin />
+						 	: authModal.type === 'register'
+								? <AuthSignUp />
+								: <AuthResetPassword />
+						}
 					</div>
 				</div>
 			</div>

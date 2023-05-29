@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import './globals.css'
 import AppProvider from './provider'
 
@@ -6,11 +7,7 @@ export const metadata = {
   description: 'This is the clone application to learn Next.js and TypeScript',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({children}: {children: ReactNode}) {
   return (
     <html lang="en">
       <body>

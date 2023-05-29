@@ -1,5 +1,5 @@
-import { PrimaryButton } from "@/components/Button/Primary";
-import { FormItem } from "@/components/Form/Item";
+import { PrimaryButton } from "@/app/_components/Button/Primary";
+import { FormItem } from "@/app/_components/Form/Item";
 
 export function AuthResetPassword() {
   return (

@@ -1,7 +1,7 @@
 'use client'
 
-import { AuthCommonModal } from "@/components/Modal/(Auth)/Common";
-import { NavBar } from "@/components/NavBar/NavBar";
+import { AuthCommonModal } from "@/app/_components/Modal/(Auth)/Common";
+import { NavBar } from "@/app/_components/NavBar/NavBar";
 import { useRecoilValue } from "recoil";
 import { authModalState } from "../_state/recoil";
 

@@ -1,7 +1,7 @@
 import { authModalState, AuthModalType } from "@/app/_state/recoil"
-import { PrimaryButton } from "@/components/Button/Primary"
-import { FormItem } from "@/components/Form/Item"
-import { SecondaryLink } from "@/components/Link/Secondary"
+import { PrimaryButton } from "@/app/_components/Button/Primary"
+import { FormItem } from "@/app/_components/Form/Item"
+import { SecondaryLink } from "@/app/_components/Link/Secondary"
 import { useSetRecoilState } from "recoil"
 
 export function AuthSignUp() {

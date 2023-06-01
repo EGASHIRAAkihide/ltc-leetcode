@@ -5,10 +5,26 @@ import { AuthResetPassword } from './ResetPassword';
 import { authModalState } from '@/app/_state/recoil';
 import { useRecoilValue } from 'recoil';
 import { useCloseModal } from '@/app/_hooks/useCloseModal';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/app/_firebase/firebase';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export function AuthCommonModal() {
 	const authModal = useRecoilValue(authModalState);
 	const closeModal = useCloseModal();
+
+	const [user, loading, error] = useAuthState(auth);
+	const [pageLoading, setPageLoading] = useState<boolean>(true)
+	const router = useRouter()
+
+	useEffect(() => {
+		if (user) router.push('/')
+		if (!loading && !user) setPageLoading(false)
+	}, [user, router])
+
+	if (pageLoading) return null 
+
   return (
 		<>
 			<div

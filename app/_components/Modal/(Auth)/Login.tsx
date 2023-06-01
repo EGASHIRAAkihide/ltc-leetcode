@@ -4,9 +4,27 @@ import { FormItem } from "@/app/_components/Form/Item"
 import { PrimaryLink } from "@/app/_components/Link/Primary"
 import { SecondaryLink } from "@/app/_components/Link/Secondary"
 import { useSetRecoilState } from "recoil"
+import { auth } from "@/app/_firebase/firebase"
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 export function AuthLogin() {
   const setAuthModalState = useSetRecoilState(authModalState)
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+  })
+
+  const [
+    signInWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useSignInWithEmailAndPassword(auth);
+
+  const router = useRouter()
+
   const handleClick = (type: AuthModalType) => {
     setAuthModalState((prev) => ({
       ...prev,
@@ -14,17 +32,47 @@ export function AuthLogin() {
     }))
   }
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }))
+  }
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!inputs.email || !inputs.password) {
+      return alert("Please fill all fields")
+    }
+
+    try {
+      const user = await signInWithEmailAndPassword(inputs.email, inputs.password)
+      if (!user) return
+
+      alert("login successfully")
+      router.push('/')
+    } catch (error: any) {
+      alert(error.message)
+    }
+  }
+
+  useEffect(() => {
+    if (error) alert(error.message)
+  }, [error])
+
   return (
-    <form className='space-y-6 px-6 py-4'>
+    <form className='space-y-6 px-6 py-4' onSubmit={handleLogin}>
       <h3 className='text-xl font-medium text-white'>sign in to leetclone</h3>
 
       <FormItem
+        onChange={handleInputChange}
         labelText='your email'
         inputType='email'
         placeholder='name@company.com'
       />
 
       <FormItem
+        onChange={handleInputChange}
         labelText='your password'
         inputType='password'
         placeholder='******'
@@ -33,6 +81,7 @@ export function AuthLogin() {
       <PrimaryButton
         text='login'
         type='submit'
+        isLoading={loading}
       />
 
       <div className='w-full text-right'>

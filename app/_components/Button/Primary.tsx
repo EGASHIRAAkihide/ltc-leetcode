@@ -5,13 +5,15 @@ type Props = {
   size?: 'small' | 'full';
   text: string,
   type: 'button' | 'submit' | 'reset',
+  isLoading?: boolean
 }
 
 export function PrimaryButton({
   onClick,
   size = 'full',
   text = 'button',
-  type = 'button'
+  type = 'button',
+  isLoading = false,
 }: Props) {
   return (
     <button
@@ -26,7 +28,7 @@ export function PrimaryButton({
         `}
         onClick={onClick}
     >
-      {text}
+      {isLoading ? 'loading...' : text}
     </button>
   )
 }

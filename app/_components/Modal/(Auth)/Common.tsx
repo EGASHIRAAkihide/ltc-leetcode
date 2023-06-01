@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/_firebase/firebase';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export function AuthCommonModal() {
 	const authModal = useRecoilValue(authModalState);
@@ -19,11 +20,16 @@ export function AuthCommonModal() {
 	const router = useRouter()
 
 	useEffect(() => {
-		if (user) router.push('/')
+		if (user) {
+			toast.error("User already login")
+			router.push('/')
+		}
 		if (!loading && !user) setPageLoading(false)
 	}, [user, router])
 
-	if (pageLoading) return null 
+	if (pageLoading) {
+		return null
+	}
 
   return (
 		<>

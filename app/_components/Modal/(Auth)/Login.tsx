@@ -8,6 +8,7 @@ import { auth } from "@/app/_firebase/firebase"
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
 export function AuthLogin() {
   const setAuthModalState = useSetRecoilState(authModalState)
@@ -42,22 +43,26 @@ export function AuthLogin() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!inputs.email || !inputs.password) {
-      return alert("Please fill all fields")
+      return toast.error('Please fill all fields')
     }
 
     try {
       const user = await signInWithEmailAndPassword(inputs.email, inputs.password)
-      if (!user) return
+      if (!user) {
+        return toast.error("User doesn't exist")
+      }
 
-      alert("login successfully")
+      toast.success("login successfully")
       router.push('/')
     } catch (error: any) {
-      alert(error.message)
+      toast.error(error.message)
     }
   }
 
   useEffect(() => {
-    if (error) alert(error.message)
+    if (error) {
+      toast.error(error.message)
+    }
   }, [error])
 
   return (

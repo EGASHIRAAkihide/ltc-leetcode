@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import { auth } from "@/app/_firebase/firebase"
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
+import toast from "react-hot-toast";
 
 export function AuthSignUp() {
   const setAuthModalState = useSetRecoilState(authModalState)
@@ -43,7 +44,7 @@ export function AuthSignUp() {
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!inputs.email || !inputs.displayname || !inputs.password) {
-      return alert("Please fill all fields")
+      return toast.error('Please fill all fields')
     }
     
     try {
@@ -53,15 +54,17 @@ export function AuthSignUp() {
       )
       if (!newUser) return
 
-      alert('created new user')
+      toast.success("created new user!")
       router.push('/')
     } catch (error: any) {
-      alert(error.message)
+      toast.error(error.message)
     }
   }
 
   useEffect(() => {
-    if (error) alert(error.message)
+    if (error) {
+      toast.error(error.message)
+    }
   }, [error])
 
   return (

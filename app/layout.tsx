@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import './globals.css'
 import AppProvider from './provider'
+import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
   title: 'Learn To Clone - LeetCode',
@@ -12,6 +13,7 @@ export default function RootLayout({children}: {children: ReactNode}) {
     <html lang="en">
       <body>
         <AppProvider>{children}</AppProvider>
+        <Toaster />
       </body>
     </html>
   )

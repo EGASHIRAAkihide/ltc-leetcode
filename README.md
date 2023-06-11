@@ -1,4 +1,4 @@
 ## memo
 ### YouTube resource
 - https://youtu.be/GnodscC2p-A
-- 43:01(03.27.2023)
+- 1:23:08(03.06.2023)

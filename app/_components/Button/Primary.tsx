@@ -26,7 +26,7 @@ export function PrimaryButton({
           : 'w-full sm:px-6 px-4 py-2'
         }
         `}
-        onClick={onClick}
+      onClick={onClick}
     >
       {isLoading ? 'loading...' : text}
     </button>

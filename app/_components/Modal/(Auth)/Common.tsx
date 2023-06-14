@@ -1,3 +1,5 @@
+'use client'
+
 import { XCircleIcon } from '@heroicons/react/24/outline'
 import { AuthLogin } from './Login';
 import { AuthSignUp } from './SignUp';
@@ -8,15 +10,14 @@ import { useCloseModal } from '@/app/_hooks/useCloseModal';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/_firebase/firebase';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 export function AuthCommonModal() {
 	const authModal = useRecoilValue(authModalState);
 	const closeModal = useCloseModal();
 
-	const [user, loading, error] = useAuthState(auth);
-	const [pageLoading, setPageLoading] = useState<boolean>(true)
+	const [user, loading] = useAuthState(auth);
 	const router = useRouter()
 
 	useEffect(() => {
@@ -24,12 +25,7 @@ export function AuthCommonModal() {
 			toast.error("User already login")
 			router.push('/')
 		}
-		if (!loading && !user) setPageLoading(false)
 	}, [user, router])
-
-	if (pageLoading) {
-		return null
-	}
 
   return (
 		<>

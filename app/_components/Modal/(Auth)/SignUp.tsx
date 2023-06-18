@@ -21,7 +21,7 @@ export function AuthSignUp() {
   }
   const [ inputs, setInputs ] = useState({
     email: '',
-    displayname: '',
+    displayName: '',
     password: '',
   })
 
@@ -43,7 +43,7 @@ export function AuthSignUp() {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!inputs.email || !inputs.displayname || !inputs.password) {
+    if (!inputs.email || !inputs.displayName || !inputs.password) {
       return toast.error('Please fill all fields')
     }
     
@@ -79,7 +79,7 @@ export function AuthSignUp() {
       />
 
       <FormItem
-        labelText='display name'
+        labelText='displayName'
         inputType='text'
         placeholder='Jack'
         onChange={handleChangeInput}
